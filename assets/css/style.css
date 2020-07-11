@@ -3,3 +3,7 @@
 .icon {
     width: 75px;
 }
+
+.btn {
+   border: 5px solid rgba(171, 200, 231, 0.507);
+}

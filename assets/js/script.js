@@ -2,7 +2,10 @@
 
 var cityInputEl = document.getElementById("cityInput");
 var searchButtonEl = document.getElementById("searchBtn");
-var currentConditionsEl = document.getElementById("current");
+var currentConditionsEl = document.getElementById("currentConditions");
+var currentTempEl = document.getElementById("temp");
+var currentHumidityEl = document.getElementById("humidity");
+var currentWindEl = document.getElementById("wind");
 
 var searchCityHandler = function() {
     //extract value of input and trim excess spaces
@@ -28,22 +31,29 @@ var getCurrentWeather = function(city) {
             if (response.ok) {
                 return response.json().then(function(response) {
                     console.log(response);
-                    var currentWeathericon = document.createElement("img");
-                    currentWeathericon.src="http://openweathermap.org/img/wn/" + response.weather[0].icon + ".png";
-                    currentWeathericon.setAttribute("class", "icon");
+                    debugger;
+                    var currentWeatherIcon = document.createElement("img");
+                    currentWeatherIcon.src = "http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png";
+                    currentWeatherIcon.alt = response.weather[0].description;
+                    currentWeatherIcon.setAttribute("class", "icon");
+                    console.log(currentWeatherIcon);
                     var currentCity = response.name;
                     var currentTemp = response.main.temp;
+                    currentTempEl.textContent = currentTemp;
                     var currentHumidity = response.main.humidity;
+                    currentHumidityEl.textContent = currentHumidity;
                     var currentWind = response.wind.speed;
+                    currentWindEl.textContent = currentWind;
                     var currentDate = moment().format("MM/DD/YYYY");
-                    console.log(currentWeathericon);
+                    // console.log(currentWeathericon);
                     console.log(currentTemp);
                     console.log(currentHumidity);
                     console.log(currentWind);
 
-                    currentConditionsEl.innerHTML = "<span><h2>" + currentCity + " (" + currentDate + ") <img" + currentWeathericon + "></h2></span></br><h3>Temperature: </h3>" + currentTemp + " &degF </br> <h3>Humidity: </h3>" + currentHumidity + "% </br> <h3>Wind Speed: </h3>" + currentWind + " MPH";
-
-                    currentConditionsEl.append(currentWeathericon);
+                    currentConditionsEl.innerHTML = "<h2>" + currentCity + " (" + currentDate + ")</h2>";
+                    currentConditionsEl.append(currentWeatherIcon);
+// currentConditionsEl.innerHTML = '<img src="http://openweathermap.org/img/wn/01d@2x.png" alt="clear sky" class="icon"></img>';
+                    // currentConditionsEl.appendChild(currentTempEl);
                 });
             } else {
                 alert("City not found.");

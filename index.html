@@ -1,41 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="./assets/css/style.css" />
+    <script src="https://kit.fontawesome.com/9a28468e0a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <title>Weather Dashboard</title>
 </head>
+
 <body>
-<header class="bg-dark">
-    <h1 class="text-light text-center">Weather Dashboard</h1>
-</header>
-<div class="container">
-    <div class = "row">
-        <div class="col-3">
-            <div class="form-group" id="searchForm">
-                <label for="cityInput">Search for a city:</label>
-                <input type="text" class="form-control" id="cityInput">
-                <button class="btn btn-primary" id="searchBtn">Search</button>
+    <header class="bg-dark">
+        <h1 class="text-light text-center">Weather Dashboard</h1>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-row" id="searchForm">
+                    <h3>Search for a city:</h3>
+                    <div class="form-group col-md-10 pr-0">
+                        <input type="text" class="form-control" id="cityInput">
+                    </div>
+                    <div class="form-group col-md-2 pl-0 align-center">
+                        <button class="btn btn-primary rounded" id="searchBtn"><i class="fas fa-search"></i></button>
+
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-9">
-            <div class="card" id="current">
-                <h2>current conditions</h2>
-            </div>
-            <div class="card" id="forecast">
-                <h2>five day forecast</h2>
+            <div class="col-8">
+                <div class="card border-1 border-secondary inline" id="current">
+                    <h2 id="currentConditions">Current Conditions</h2>
+                    <h5>Temperature: <span id="temp"></span>&degF</h5>
+                    <h5>Humidity: <span id="humidity"></span>%</h5>
+                    <h5>Wind Speed: <span id="wind"></span> MPH</h5>
+                    <h4>UV Index:</h4>
+                </div>
+                <div class="card border-1 border-secondary" id="forecast">
+                    <h2>5-Day Forecast:</h2>
+                    <div class="row-inline d-inline">
+                        <div class="card bg-primary text-white">
+                            <h4>Date</h4>
+                            <h5>Weather Icon</h5>
+                            <h5>Temp</h5>
+                            <h5>Humidity</h5>
+                        </div>
+                        <div class="card bg-primary text-white">
+                            <h4>Date</h4>
+                            <h5>Weather Icon</h5>
+                            <h5>Temp</h5>
+                            <h5>Humidity</h5>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script>
 </body>
+
 </html>
