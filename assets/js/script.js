@@ -41,8 +41,7 @@ var saveCity = function(city) {
         localStorage.setItem("city", JSON.stringify(cityNames));
         console.log(cityNames);
         loadCity();
-       
-};
+       };
 
 var loadCity = function() {
     // debugger;
@@ -52,16 +51,19 @@ var loadCity = function() {
         var searchEl = document.createElement("div");
         searchEl.classList.add("card", "searchHistory")
         searchEl.textContent = citySearch[i];
-        console.log(searchEl);
-            // searchEl.append(citySearch);
-            historyEl.append(searchEl);
+        // console.log(searchEl);
+        historyEl.append(searchEl);
 }
-// citySearchResultsEl.addEventListener("click", searchSavedCityHandler);
+
 };
 
-var searchSavedCityHandler = function() {
-    var searchSavedCity = $(this).value;
+var searchSavedCityHandler = function(event) {
+    var searchSavedCity = event.target.textContent;
     console.log(searchSavedCity);
+    currentConditionsEl.innerHTML = "";
+    forecastEl.innerHTML = "";
+    getCurrentWeather(searchSavedCity);
+    getForecast(searchSavedCity);
 };
 
 
@@ -173,7 +175,7 @@ var getForecast = function (city) {
 
                 for (i = 0; i < response.list.length; i++) {
                     if (response.list[i].dt_txt.indexOf("15:00:00") !== -1) {
-                        console.log(response.list[i]);
+                        // console.log(response.list[i]);
                         
                         var cardEl = document.createElement("div");
                         cardEl.classList.add("card", "bg-primary", "text-white");
@@ -211,6 +213,7 @@ var getForecast = function (city) {
 };
 
 searchButtonEl.addEventListener("click", searchCityHandler);
+historyEl.addEventListener("click", searchSavedCityHandler);
 
 
 
