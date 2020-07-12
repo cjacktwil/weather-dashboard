@@ -6,6 +6,7 @@ var currentConditionsEl = document.getElementById("current");
 var uvValueEl = document.getElementById("uvValue");
 var forecastEl = document.getElementById("forecast")
 var historyEl = document.getElementById("history");
+var citySearchResultsEl = document.getElementsByClassName("searchHistory");
 // var currentConditionsIconEl = document.getElementById("icon");
 // var currentTempEl = document.getElementById("temp");
 // var currentHumidityEl = document.getElementById("humidity");
@@ -44,16 +45,26 @@ var saveCity = function(city) {
 };
 
 var loadCity = function() {
+    // debugger;
        var citySearch = JSON.parse(localStorage.getItem("city"));
         console.log(citySearch);
      for (i = 0; i < citySearch.length; i++) {
         var searchEl = document.createElement("div");
+        searchEl.classList.add("card", "searchHistory")
         searchEl.textContent = citySearch[i];
         console.log(searchEl);
             // searchEl.append(citySearch);
             historyEl.append(searchEl);
 }
+// citySearchResultsEl.addEventListener("click", searchSavedCityHandler);
 };
+
+var searchSavedCityHandler = function() {
+    var searchSavedCity = $(this).value;
+    console.log(searchSavedCity);
+};
+
+
 
 
 var getCurrentWeather = function (city) {
@@ -155,17 +166,18 @@ var getForecast = function (city) {
 
                 forecastEl.innerHTML = "<h4 class='mt-3'>5-Day Forecast:</h4>";
                 var forecastRowEl = document.createElement("div");
-                forecastRowEl.className = "card-group";
+                forecastRowEl.className = "row";
+                var divEl = document.createElement("div");
+                divEl.classList.add("card-deck");
 
 
                 for (i = 0; i < response.list.length; i++) {
                     if (response.list[i].dt_txt.indexOf("15:00:00") !== -1) {
                         console.log(response.list[i]);
-                        var divEl = document.createElement("div");
-                        divEl.classList.add("card-deck");
+                        
                         var cardEl = document.createElement("div");
-                        cardEl.classList.add("card", "bg-primary", "text-white", "col-2");
-                        var dateEl = document.createElement("h4");
+                        cardEl.classList.add("card", "bg-primary", "text-white");
+                        var dateEl = document.createElement("h5");
                         date = response.list[i].dt_txt;
                         dateEl.textContent = moment(date).format("MM/DD/YYYY");
                         // console.log(date);
@@ -199,6 +211,7 @@ var getForecast = function (city) {
 };
 
 searchButtonEl.addEventListener("click", searchCityHandler);
+
 
 
 // var searchEl = $("#searchForm")
