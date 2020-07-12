@@ -4,6 +4,8 @@ var cityInputEl = document.getElementById("cityInput");
 var searchButtonEl = document.getElementById("searchBtn");
 var currentConditionsEl = document.getElementById("current");
 var uvValueEl = document.getElementById("uvValue");
+var forecastEl = document.getElementById("forecast")
+var historyEl = document.getElementById("history");
 // var currentConditionsIconEl = document.getElementById("icon");
 // var currentTempEl = document.getElementById("temp");
 // var currentHumidityEl = document.getElementById("humidity");
@@ -12,6 +14,9 @@ var uvValueEl = document.getElementById("uvValue");
 
 
 var searchCityHandler = function () {
+
+    currentConditionsEl.innerHTML = "";
+    forecastEl.innerHTML = "";
     //extract value of input and trim excess spaces
     var city = cityInputEl.value.trim();
 
@@ -20,11 +25,36 @@ var searchCityHandler = function () {
         // console.log(city);
         getCurrentWeather(city);
         getForecast(city);
+        saveCity(city);
         cityInputEl.value = "";
+
+        
     } else {
         alert("Please enter a city name.")
     }
+  
 };
+
+var saveCity = function(city) {
+    var cityNames = [city];
+        localStorage.setItem("city", JSON.stringify(cityNames));
+        console.log(cityNames);
+        loadCity();
+       
+};
+
+var loadCity = function() {
+       var citySearch = JSON.parse(localStorage.getItem("city"));
+        console.log(citySearch);
+     for (i = 0; i < citySearch.length; i++) {
+        var searchEl = document.createElement("div");
+        searchEl.textContent = citySearch[i];
+        console.log(searchEl);
+            // searchEl.append(citySearch);
+            historyEl.append(searchEl);
+}
+};
+
 
 var getCurrentWeather = function (city) {
     // debugger;
@@ -34,7 +64,7 @@ var getCurrentWeather = function (city) {
 
         if (response.ok) {
             return response.json().then(function (response) {
-                console.log(response);
+                // console.log(response);
                 // debugger;
                 var currentDate = moment().format("MM/DD/YYYY");
                 var currentContainerEl = document.createElement("div");
@@ -47,7 +77,7 @@ var getCurrentWeather = function (city) {
                 currentWeatherIcon.src = "http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png";
                 currentWeatherIcon.alt = response.weather[0].description;
                 currentWeatherIcon.setAttribute("class", "icon");
-                console.log(currentWeatherIcon);
+                // console.log(currentWeatherIcon);
                 currentEl.append(currentWeatherIcon);
 
                 var currentTempEl = document.createElement("h4");
@@ -65,9 +95,9 @@ var getCurrentWeather = function (city) {
 
                 //identify latitude and longitude of search city
                 var lat = response.coord.lat;
-                console.log(lat);
+                // console.log(lat);
                 var lon = response.coord.lon;
-                console.log(lon);
+                // console.log(lon);
 
                 //fetch UV index info                
                 var currentUVApiUrl = "http://api.openweathermap.org/data/2.5/uvi?appid=2c377231fe09e8bb558e96aed67feee2&lat=" + lat + "&lon=" + lon;
@@ -81,7 +111,7 @@ var getCurrentWeather = function (city) {
                             uvButtonEl.textContent = response.value;
                             uvButtonEl.classList.add("text-white", "rounded", "border-0");
 
-                            console.log(currentUvEl);
+                            // console.log(currentUvEl);
 
                             if (response.value < 3) {
                                 uvButtonEl.classList.add("bg-success");
@@ -115,15 +145,14 @@ var getCurrentWeather = function (city) {
 var getForecast = function (city) {
 
     var forecastApiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&appid=2c377231fe09e8bb558e96aed67feee2"
-    console.log(forecastApiUrl);
+    // console.log(forecastApiUrl);
 
     fetch(forecastApiUrl).then(function (response) {
 
         if (response.ok) {
             return response.json().then(function (response) {
-                console.log(response);
+                // console.log(response);
 
-                var forecastEl = $("#forecast");
                 forecastEl.innerHTML = "<h4 class='mt-3'>5-Day Forecast:</h4>";
                 var forecastRowEl = document.createElement("div");
                 forecastRowEl.className = "card-group";
@@ -146,10 +175,10 @@ var getForecast = function (city) {
                         iconEl.setAttribute("class", "icon");
                         var tempEl = document.createElement("p");
                         tempEl.innerHTML = "<p>Temp: " + response.list[i].main.temp + "&degF</p>";
-                        console.log(tempEl);
+                        // console.log(tempEl);
                         var humidityEl = document.createElement("p");
                         humidityEl.textContent = "Humidity: " + response.list[i].main.humidity + "%";
-                        console.log(humidityEl);
+                        // console.log(humidityEl);
 
                         cardEl.appendChild(dateEl);
                         cardEl.appendChild(iconEl);
