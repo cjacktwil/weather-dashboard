@@ -7,3 +7,7 @@
 .btn {
    border: 5px solid rgba(171, 200, 231, 0.507);
 }
+
+#forecast {
+    display: flex;
+}
